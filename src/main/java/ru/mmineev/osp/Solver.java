@@ -17,7 +17,6 @@ public class Solver {
 		    Action action = new Action(from, move, previousAction);
 		    if (action.getFrom().equals(previousAction.getTo())
 			    && previousAction.getFrom().equals(action.getTo())) {
-			//System.out.println("Stupid move " + action);
 			return;
 		    }
 		    actions.add(action);

@@ -14,10 +14,10 @@ public class OspApp {
 	    { Field.WALL, Field.WALL, Field.BLACK, Field.BLACK, Field.BLACK },
 	    { Field.WALL, Field.WALL, Field.BLACK, Field.BLACK, Field.BLACK } };
 
-    private Renderer renderer = new ConsoleRenderer();
-    private Solver solver = new Solver();
-    private Field field = new Field(INITIAL);
-    private Action initial = new Action(field);
+    private final Renderer renderer = new ConsoleRenderer();
+    private final Solver solver = new Solver();
+    private final Field field = new Field(INITIAL);
+    private final Action initial = new Action(field);
     private Action best = initial;
 
     public OspApp() {
@@ -28,15 +28,20 @@ public class OspApp {
 
 	for (int i = 0; i < 1000; i++) {
 	    Action nextBestMove = rangedMoves.pollFirst();
+	    rangedMoves.stream().limit(4).forEach(System.out::println);
 	    System.out.println("Taking " + nextBestMove);
 	    if (best.getDistance() > nextBestMove.getDistance()) {
 		best = nextBestMove;
 	    }
-	    renderer.render(nextBestMove, 1);
+	    renderer.render(nextBestMove.getRightAfterMove());
 	    List<Action> possibleMoves = solver.possibleMoves(nextBestMove);
 
 	    rangedMoves.addAll(possibleMoves);
 	    rangedMoves.sort(Comparator.comparing(Action::totalCost));
+	    while(rangedMoves.size() > 1000) {
+		rangedMoves.removeLast();
+	    }
+	    System.out.println("");
 	}
 
 	System.out.println("Best " + best);

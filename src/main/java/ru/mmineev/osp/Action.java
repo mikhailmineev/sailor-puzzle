@@ -15,7 +15,7 @@ public class Action {
 	this.cost = previousAction.cost + 1;
 	this.rightAfterMove = previousAction.getRightAfterMove().transform(from, to);
 	this.previousAction = previousAction;
-	distance = calculateDistance(rightAfterMove);
+	distance = Utils.calculateDistance(rightAfterMove);
     }
 
     public Action(Field rightAfterMove) {
@@ -24,7 +24,7 @@ public class Action {
 	this.cost = 0;
 	this.rightAfterMove = rightAfterMove;
 	previousAction = null;
-	distance = calculateDistance(rightAfterMove);
+	distance = Utils.calculateDistance(rightAfterMove);
     }
 
     public int getDistance() {
@@ -53,31 +53,6 @@ public class Action {
 
     public Action getPreviousAction() {
 	return previousAction;
-    }
-
-    private int calculateDistance(Field current) {
-	int distance = 0;
-	byte[][] matrix = current.getFieldMatrix();
-	for (int x = 0; x < matrix.length; x++) {
-	    for (int y = 0; y < matrix[x].length; y++) {
-		byte currentValue = matrix[x][y];
-		if (currentValue == Field.WALL) {
-		    continue;
-		}
-		if (currentValue == Field.EMPTY) {
-		    continue;
-		}
-		if (currentValue == Field.WHITE) {
-		    distance += 9 - x - y;
-		    continue;
-		}
-		if (currentValue == Field.BLACK) {
-		    distance += x + y;
-		    continue;
-		}
-	    }
-	}
-	return distance;
     }
 
     @Override
