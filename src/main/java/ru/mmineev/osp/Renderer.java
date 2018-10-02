@@ -4,6 +4,6 @@ public interface Renderer {
 
     void render(Field field);
 
-    void render(Action action);
+    void render(Action action, int back);
 
 }

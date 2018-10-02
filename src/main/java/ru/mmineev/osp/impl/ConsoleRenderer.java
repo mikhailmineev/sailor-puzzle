@@ -7,10 +7,10 @@ import ru.mmineev.osp.Renderer;
 public class ConsoleRenderer implements Renderer {
 
     @Override
-    public void render(Action action) {
+    public void render(Action action, int back) {
 	for (int x = 0; x < 5; x++) {
-	    for (int s = 0; s < 7; s++) {
-		Field field = getForHistory(action, 6 - s);
+	    for (int s = 0; s < back; s++) {
+		Field field = getForHistory(action, back - s - 1);
 		if (field == null) {
 		    continue;
 		}

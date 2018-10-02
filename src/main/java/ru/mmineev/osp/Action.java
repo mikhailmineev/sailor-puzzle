@@ -2,17 +2,12 @@ package ru.mmineev.osp;
 
 public class Action {
     private final int cost;
-
-    /**
-     * –ассто€ние до цели - количество фишек на нужных пол€х.
-     */
     private final int distance;
 
     private final Point from;
     private final Point to;
     private final Field rightAfterMove;
     private final Action previousAction;
-    private final Field target;
 
     public Action(Point from, Point to, Action previousAction) {
 	this.from = from;
@@ -20,17 +15,15 @@ public class Action {
 	this.cost = previousAction.cost + 1;
 	this.rightAfterMove = previousAction.getRightAfterMove().transform(from, to);
 	this.previousAction = previousAction;
-	this.target = previousAction.target;
 	distance = calculateDistance(rightAfterMove);
     }
 
-    public Action(Field rightAfterMove, Field target) {
+    public Action(Field rightAfterMove) {
 	this.from = null;
 	this.to = null;
 	this.cost = 0;
 	this.rightAfterMove = rightAfterMove;
 	previousAction = null;
-	this.target = target;
 	distance = calculateDistance(rightAfterMove);
     }
 
@@ -65,21 +58,21 @@ public class Action {
     private int calculateDistance(Field current) {
 	int distance = 0;
 	byte[][] matrix = current.getFieldMatrix();
-	byte[][] targetMatrix = target.getFieldMatrix();
 	for (int x = 0; x < matrix.length; x++) {
 	    for (int y = 0; y < matrix[x].length; y++) {
-		byte targetValue = targetMatrix[x][y];
 		byte currentValue = matrix[x][y];
-		if (targetValue == Field.WALL) {
+		if (currentValue == Field.WALL) {
 		    continue;
 		}
-		if (targetValue == Field.EMPTY) {
-		    distance++;
+		if (currentValue == Field.EMPTY) {
 		    continue;
 		}
-		if (currentValue != targetValue) {
-		    distance++;
-		    // distance += Math.sqrt((x - 2) * (x - 2) + (y - 2) * (y - 2));
+		if (currentValue == Field.WHITE) {
+		    distance += 9 - x - y;
+		    continue;
+		}
+		if (currentValue == Field.BLACK) {
+		    distance += x + y;
 		    continue;
 		}
 	    }
