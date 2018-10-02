@@ -70,10 +70,10 @@ public class Action {
 	    for (int y = 0; y < matrix[x].length; y++) {
 		byte targetValue = targetMatrix[x][y];
 		byte currentValue = matrix[x][y];
-		if (targetValue == 0) {
+		if (targetValue == Field.WALL) {
 		    continue;
 		}
-		if (targetValue == 1) {
+		if (targetValue == Field.EMPTY) {
 		    distance++;
 		    continue;
 		}

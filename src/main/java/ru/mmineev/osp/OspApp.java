@@ -3,22 +3,24 @@ package ru.mmineev.osp;
 import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
+
+import ru.mmineev.osp.impl.ConsoleRenderer;
 
 public class OspApp {
-    public static final byte[][] TARGET = { { 3, 3, 3, 0, 0 }, { 3, 3, 3, 0, 0 }, { 3, 3, 1, 2, 2 }, { 0, 0, 2, 2, 2 },
-	    { 0, 0, 2, 2, 2 } };
-    /*
-     * 0 - wall 1 - empty 2 - white 3 - black
-     */
-    private static final byte[][] INITIAL = { { 2, 2, 2, 0, 0 }, { 2, 2, 2, 0, 0 }, { 2, 2, 1, 3, 3 },
-	    { 0, 0, 3, 3, 3 }, { 0, 0, 3, 3, 3 } };
+    public static final byte[][] TARGET = { 
+	    { Field.BLACK, Field.BLACK, Field.BLACK, Field.WALL, Field.WALL },
+	    { Field.BLACK, Field.BLACK, Field.BLACK, Field.WALL, Field.WALL },
+	    { Field.BLACK, Field.BLACK, Field.EMPTY, Field.WHITE, Field.WHITE },
+	    { Field.WALL, Field.WALL, Field.WHITE, Field.WHITE, Field.WHITE },
+	    { Field.WALL, Field.WALL, Field.WHITE, Field.WHITE, Field.WHITE } };
+    private static final byte[][] INITIAL = { 
+	    { Field.WHITE, Field.WHITE, Field.WHITE, Field.WALL, Field.WALL },
+	    { Field.WHITE, Field.WHITE, Field.WHITE, Field.WALL, Field.WALL },
+	    { Field.WHITE, Field.WHITE, Field.EMPTY, Field.BLACK, Field.BLACK },
+	    { Field.WALL, Field.WALL, Field.BLACK, Field.BLACK, Field.BLACK },
+	    { Field.WALL, Field.WALL, Field.BLACK, Field.BLACK, Field.BLACK } };
 
-    private Renderer renderer = new Renderer();
+    private Renderer renderer = new ConsoleRenderer();
     private Solver solver = new Solver();
     private Field field = new Field(INITIAL);
     private Field targetField = new Field(TARGET);

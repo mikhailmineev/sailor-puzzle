@@ -3,6 +3,11 @@ package ru.mmineev.osp;
 import java.util.Arrays;
 
 public class Field {
+    public static final int WALL = 0;
+    public static final int EMPTY = 1;
+    public static final int WHITE = 2;
+    public static final int BLACK = 3;
+
     private byte[][] field;
 
     public Field(byte[][] field) {
@@ -16,14 +21,14 @@ public class Field {
     public Field transform(Point from, Point move) {
 	byte[][] copy = copy();
 	byte fromCellValue = copy[from.getX()][from.getY()];
-	if (fromCellValue == 0 || fromCellValue == 1) {
+	if (fromCellValue == WALL || fromCellValue == EMPTY) {
 	    throw new IllegalArgumentException("Cant take item from empty cell");
 	}
-	if (copy[move.getX()][move.getY()] == 2 || copy[move.getX()][move.getY()] == 3) {
+	if (copy[move.getX()][move.getY()] == WHITE || copy[move.getX()][move.getY()] == BLACK) {
 	    throw new IllegalArgumentException("Target cell is not empty");
 	}
 	copy[move.getX()][move.getY()] = fromCellValue;
-	copy[from.getX()][from.getY()] = 1;
+	copy[from.getX()][from.getY()] = EMPTY;
 	return new Field(copy);
     }
 

@@ -5,9 +5,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class Solver {
-    /*
-     * 0 - wall 1 - empty 2 - white 3 - black
-     */
+
     public List<Action> possibleMoves(Action previousAction) {
 	List<Action> actions = new ArrayList<>();
 	byte[][] matrix = previousAction.getRightAfterMove().getFieldMatrix();
@@ -32,10 +30,10 @@ public class Solver {
 
     private List<Point> possibleMoveFor(Field field, int x, int y) {
 	byte[][] matrix = field.getFieldMatrix();
-	if (matrix[x][y] == 0) {
+	if (matrix[x][y] == Field.WALL) {
 	    return Collections.emptyList();
 	}
-	if (matrix[x][y] == 1) {
+	if (matrix[x][y] == Field.EMPTY) {
 	    return Collections.emptyList();
 	}
 	List<Point> points = new ArrayList<>();
@@ -67,10 +65,10 @@ public class Solver {
 	    return false;
 	}
 	byte cell = matrix[x][y];
-	if (cell == 0) {
+	if (cell == Field.WALL) {
 	    return false;
 	}
-	if (cell != 1) {
+	if (cell != Field.EMPTY) {
 	    return true;
 	}
 	return false;
@@ -81,10 +79,10 @@ public class Solver {
 	    return;
 	}
 	byte cell = matrix[x][y];
-	if (cell == 0) {
+	if (cell == Field.WALL) {
 	    return;
 	}
-	if (cell == 1) {
+	if (cell == Field.EMPTY) {
 	    points.add(new Point(x, y));
 	}
     }
