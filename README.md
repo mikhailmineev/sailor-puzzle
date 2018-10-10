@@ -1,3 +1,5 @@
+Алгоритм А*
+
 Ситуации хранятся в сортируемом списке
 
 ```java
@@ -11,8 +13,6 @@ Action - класс, хранящий текущее расположение ф
 ```java
 rangedMoves.sort(Comparator.comparing(Action::totalCost));
 ```
-
-Алгоритм А*
 
 ```java
 public int totalCost() {
