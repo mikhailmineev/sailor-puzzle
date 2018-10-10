@@ -1,3 +1,10 @@
+Запуск
+
+```
+mvn compile
+java -classpath target/classes ru.mmineev.osp.OspApp
+```
+
 Алгоритм А*
 
 Ситуации хранятся в сортируемом списке
